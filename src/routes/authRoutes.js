@@ -41,7 +41,8 @@ async (req,res)=>{
               return next(err);
 
         }
-    })(req,res,next);
+    })
+    (req,res,next);
 })
 
 
