@@ -4,14 +4,22 @@ const User = require("./src/models/user");
 const {connect} = require('./src/config/database')
 const app = express() // executing the function return a new express function
 const apiRouter = require("./src/routes/index")
-app.use('/api',apiRouter);
-app.get('/',(req,res)=>{
-    res.send({
-        success:true,
-        message:"Sucessfully hitting the api",
-        data:{}
-    
-})
+const authRouter = require('./src/routes/authRoutes')
+const bodyParser = require('body-parser')
+const passport = require('passport')
+require("./src/util/auth");
+
+app.use(bodyParser.urlencoded({extended:false}))
+app.use("/",authRouter)
+app.use('/api',passport.authenticate('jwt',{session: false}),apiRouter);
+
+app.use(function(err,req,res,next){
+    res.status(err.status || 500);
+    res.json({
+        success: false,
+        error: err
+    });
+
 })
 
 
@@ -26,5 +34,5 @@ app.listen(3000,async ()=>{
     //     password:12345,
     //     username:'abc'
     // });
-    console.log(user);
+    // console.log(user);
 })

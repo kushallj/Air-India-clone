@@ -11,10 +11,6 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         require:true
-    },
-    username:{
-        type:String,
-        require:true
     }
 },{timestamps: true})
 //pre -save is a trigger that gets a function and executes it before a user object is save
