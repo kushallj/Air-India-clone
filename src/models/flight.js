@@ -31,8 +31,17 @@ const flightSchema = new mongoose.Schema({
     flightNumber:{
         type:String,
         required:true
+    },
+    price:{
+        type:Number,
+        required:true
+    },
+    boardingGate: {
+        type:Number
     }
 });
+
+
 
 const flightModel = new mongoose.model('flight',flightSchema)
 
